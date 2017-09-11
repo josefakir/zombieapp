@@ -1,0 +1,70 @@
+<div data-page="alarmaadd" class="page navbar-fixed ">
+  <div class="navbar">
+    <div class="navbar-inner">
+        <div class="left sliding"><a href="recordatorios.html" class="link icon-only"><i class="fa fa-chevron-left"></i></a></div>
+        <div class="center ">Agrega un recordatorio</div>
+        <!--<div class="right sliding"><a href="#" data-panel="left" class="open-panel link icon-only"><i class="fa fa-bars"></i></a></div>-->
+    </div>
+  </div>
+  <div class="page-content hide-bars-on-scroll" >
+    
+       <form>
+      <div class="list-block">
+        <ul>
+          <li>
+            <div class="item-content">
+              <div class="item-inner">
+                <div class="item-title  label">Etiqueta</div>
+                <div class="item-input">
+                  <input type="text" placeholder="" id="input_texto" />
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="item-content">
+              <div class="item-inner">
+                <div class="item-title  label">Fecha</div>
+                <div class="item-input">
+                  <input type="text" placeholder="Fecha de recordatorio" readonly id="calendar-default">
+                </div>
+              </div>
+            </div>
+          </li>
+           <li>
+            <div class="item-content">
+              <div class="item-inner">
+                <div class="item-title  label">Hora</div>
+                <div class="item-input">
+                  <input type="text" placeholder="" id="hora_alarma" />
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+          <!-- Additional "smart-select" class -->
+          <a href="#" class="item-link smart-select">
+            <!-- select -->
+            <select name="fruits" id="input_repetir">
+              <option value="n" selected>Nunca</option>
+              <option value="n">Diario</option>
+              <option value="s">Semanalmente</option>
+              <option value="m">Mensualmente</option>
+              <option value="a">Anualmente</option>
+            </select>
+            <div class="item-content">
+              <div class="item-inner">
+                <!-- Select label -->
+                <div class="item-title">Repetir</div>
+              </div>
+            </div>
+          </a>
+        </li>
+        </ul>
+      </div>
+      </form>
+      <div class="content-block">
+            <a href="#" class=" button  color2 col-100" id="btn_agregar_alarma">Agregar</a>
+      </div>
+  </div>
+</div>

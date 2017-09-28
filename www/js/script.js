@@ -49,7 +49,13 @@ $(document).ready(function(){
 	/* CERRAR SESIÓN */
 	$(document).on('click', '#btn_cerrar_sesion', function(e){
 		localStorage.clear();
-		mainView.loadPage('index.html');
+		FB.logout(function(response) {
+		  // user is now logged out
+		  console.log(response)
+		  window.location.href = "index.html";
+		});
+		//mainView.loadPage('index.html');
+		//window.location.href = "index.html";
 	});
 	/* AGREGAR META */
 	$(document).on('click', '#btn_agregar_meta', function(e){

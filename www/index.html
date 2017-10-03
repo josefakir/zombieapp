@@ -24,6 +24,7 @@
 </head>
 <body class="theme-lightblue">
 	<script>
+		/*
 		function statusChangeCallback(response) {
 			if (response.status === 'connected') {
 				loguear();
@@ -92,9 +93,10 @@
 						myApp.alert('Usuario o contraseña incorrectos', '<i class="fa fa-exclamation-circle" aria-hidden="true" style="color:red"></i> Error');                 
 					}
 				})
-				/* hacer llamado a api */   
+				/* hacer llamado a api
 			});
 		}
+		*/
 	</script>
 	<div class="statusbar-overlay"></div>
 	<div class="panel-overlay"></div>
@@ -252,8 +254,7 @@
 					<div class="introtext">
 						<h1>¿Soy Zombie?</h1>
 						<p>9 pasos para salir del estado de muerto viviente</p>
-						<fb:login-button scope="public_profile,email" onlogin="checkLoginState();" data-width="100%" data-max-rows="1" data-size="medium">
-					</fb:login-button>
+						<a href="#" id="login_facebook"><i class="fa fa-facebook" aria-hidden="true"></i> Iniciar Sesión con Facebook</a>
 				</div>
 
 				<div class="buttonbar row no-gutter">

@@ -49,41 +49,111 @@ $(document).ready(function(){
 	/* CERRAR SESIÓN */
 	$(document).on('click', '#btn_cerrar_sesion', function(e){
 		localStorage.clear();
-		FB.logout(function(response) {
-		  // user is now logged out
-		  console.log(response)
-		  window.location.href = "index.html";
-		});
-		//mainView.loadPage('index.html');
-		//window.location.href = "index.html";
+		mainView.loadPage('index.html');
 	});
+	$(document).on('click', '#login_facebook', function(e){
+		facebookConnectPlugin.login(["email","public_profile"], function(response) 
+        {
+            if (response.authResponse) 
+            {
+            	//
+            	facebookConnectPlugin.api('/me?fields=email,first_name,last_name,picture', ["email","public_profile"],function(response){
+            		console.log(response);
+            		var postData = {
+						correo : response.email,
+						nombre: response.first_name,
+						paterno : response.last_name,
+						imagen : response.picture.data.url
+					}
+					$.ajax({
+						url : urlWS+'/registrofb',
+						method : 'POST',
+						beforeSend : function(){
+							myApp.showIndicator();
+						},
+						data : postData,
+						success : function(data){
+							//console.log(data);
+							if(data[0].auth==true){
+								localStorage.setItem('auth', true);
+								localStorage.setItem('apikey', data[0].apikey);
+								localStorage.setItem('userid', data[0].user_id);
+								localStorage.setItem('avatar', data[0].avatar);
+								localStorage.setItem('nombre', data[0].nombre);
+								localStorage.setItem('paterno', data[0].paterno);
+								localStorage.setItem('correo', data[0].correo);
+								$('#contacto_nombre').val(localStorage.getItem('nombre')+" "+localStorage.getItem('paterno'));
+								$('#contacto_email').val(localStorage.getItem('correo'));
+								$('.avatar').attr('src',localStorage.getItem('avatar'));
+								$('.nombreusuario').html(localStorage.getItem('nombre')+' '+localStorage.getItem('paterno'));
+								mainView.loadPage('home.html');
+							}
+						},
+						complete : function(data){
+							myApp.hideIndicator();
+						},
+						error : function(data){
+							console.log(data);
+							myApp.alert('Usuario o contraseña incorrectos', '<i class="fa fa-exclamation-circle" aria-hidden="true" style="color:red"></i> Error');                 
+						}
+					});
+            	},function(error){
+            		//console.log(error);
+            		//alert(error);
+            	})
+
+
+            } else  {
+                // user is not logged in
+                alert('not logged');
+            }
+        });
+		
+	});
+	/* INICIAR SESIÓN FB */
+	/* 
+	facebookConnectPlugin.login(["email","public_profile"], function(response) 
+        {
+            if (response.authResponse) 
+            {
+                alert('loged');
+            } else  {
+                // user is not logged in
+                alert('not logged');
+            }
+        });
+	*/
 	/* AGREGAR META */
 	$(document).on('click', '#btn_agregar_meta', function(e){
 		ambito = localStorage.getItem('ambito');
 		texto = $('#input_meta').val();
-		var postData = {
-			id_usuario : localStorage.getItem('userid'),
-			ambito: localStorage.getItem('ambito'),
-			texto : $('#input_meta').val()
+		if(texto == ''){
+			myApp.alert('Todos los campos son necesarios', '<i class="fa fa-exclamation-circle" aria-hidden="true" style="color:red"></i> Error');                 
+		}else{
+			var postData = {
+				id_usuario : localStorage.getItem('userid'),
+				ambito: localStorage.getItem('ambito'),
+				texto : $('#input_meta').val()
+			}
+			$.ajax({
+				method : 'POST',
+				url : urlWS+'/meta',
+				headers: {
+					"token": localStorage.getItem("apikey")
+				},
+				data : postData,
+				beforeSend : function(){
+					myApp.showIndicator();
+				},
+				success : function(data){
+					//REFRESCAR METAS
+					mainView.loadPage('metas.html?ambito='+ambito);
+				},
+				complete : function(data){
+					myApp.hideIndicator();
+				},
+			});
 		}
-		$.ajax({
-			method : 'POST',
-			url : urlWS+'/meta',
-			headers: {
-				"token": localStorage.getItem("apikey")
-			},
-			data : postData,
-			beforeSend : function(){
-				myApp.showIndicator();
-			},
-			success : function(data){
-				//REFRESCAR METAS
-				mainView.loadPage('metas.html?ambito='+ambito);
-			},
-			complete : function(data){
-				myApp.hideIndicator();
-			},
-		});
 	});
 	/* ELIMINAR META */
 	$(document).on('click', '.borrameta', function(e){
@@ -125,30 +195,34 @@ $(document).ready(function(){
 	/* AGREGAR TAREA */
 	$(document).on('click', '#btn_agregar_tarea', function(e){
 		texto = $('#input_tarea').val();
-		var postData = {
-			id_usuario : localStorage.getItem('userid'),
-			id_meta : $('#id_meta').val(),
-			ambito: localStorage.getItem('ambito'),
-			texto : texto
+		if(texto == ''){
+			myApp.alert('Todos los campos son necesarios', '<i class="fa fa-exclamation-circle" aria-hidden="true" style="color:red"></i> Error');                 
+		}else{
+			var postData = {
+				id_usuario : localStorage.getItem('userid'),
+				id_meta : $('#id_meta').val(),
+				ambito: localStorage.getItem('ambito'),
+				texto : texto
+			}
+			$.ajax({
+				method : 'POST',
+				url : urlWS+'/tarea',
+				headers: {
+					"token": localStorage.getItem("apikey")
+				},
+				data : postData,
+				beforeSend : function(){
+					myApp.showIndicator();
+				},
+				success : function(data){
+					//REFRESCAR METAS
+					mainView.loadPage('tareas.html?id_meta='+ $('#id_meta').val());
+				},
+				complete : function(data){
+					myApp.hideIndicator();
+				},
+			});
 		}
-		$.ajax({
-			method : 'POST',
-			url : urlWS+'/tarea',
-			headers: {
-				"token": localStorage.getItem("apikey")
-			},
-			data : postData,
-			beforeSend : function(){
-				myApp.showIndicator();
-			},
-			success : function(data){
-				//REFRESCAR METAS
-				mainView.loadPage('tareas.html?id_meta='+ $('#id_meta').val());
-			},
-			complete : function(data){
-				myApp.hideIndicator();
-			},
-		});
 	});
 	/* ELIMINAR TAREA */
 	$(document).on('click', '.borrartarea', function(e){
@@ -342,50 +416,54 @@ $(document).ready(function(){
 	    );
 	});
 	$(document).on('click', '#btn_agregar_alarma', function(e){
-		var postData = {
-			id_usuario : localStorage.getItem('userid'),
-			texto: $('#input_texto').val(),
-			repetir : $('#input_repetir').val(),
-			fecha : $('#calendar-default').val()+' '+$('#hora_alarma').val()
+		if($('#input_texto').val() == '' || $('#calendar-default').val()=='' || $('#hora_alarma').val()==''){
+			myApp.alert('Todos los campos son necesarios', '<i class="fa fa-exclamation-circle" aria-hidden="true" style="color:red"></i> Error');                 
+		}else{
+			var postData = {
+				id_usuario : localStorage.getItem('userid'),
+				texto: $('#input_texto').val(),
+				repetir : $('#input_repetir').val(),
+				fecha : $('#calendar-default').val()+' '+$('#hora_alarma').val()
+			}
+			$.ajax({
+				method : 'POST',
+				url : urlWS+'/alarma',
+				headers: {
+					"token": localStorage.getItem("apikey")
+				},
+				data : postData,
+				beforeSend : function(){
+					myApp.showIndicator();
+				},
+				success : function(data){
+					//REFRESCAR METAS
+					mainView.loadPage('recordatorios.html');
+					id_alarma = parseInt(data.id);
+					fecha = $('#calendar-default').val();
+					fecha =  fecha.split("-");
+					year = fecha[0];
+					month = fecha[1];
+					month = month-1;
+					day = fecha[2];
+					hora = $('#hora_alarma').val();
+					hora = hora.split(":");
+					hours =hora[0];
+					minutes = hora[1];
+					fecha = new Date(year, month, day, hours, minutes);
+					repetir = $('#input_repetir').val();
+					agendarAlarma(id_alarma,fecha,postData.texto,repetir);
+					/*
+					alert(fecha);
+					alert(id_alarma);
+					alert(postData.texto);
+					*/
+					//agendarAlarma();
+				},
+				complete : function(data){
+					myApp.hideIndicator();
+				},
+			});
 		}
-		$.ajax({
-			method : 'POST',
-			url : urlWS+'/alarma',
-			headers: {
-				"token": localStorage.getItem("apikey")
-			},
-			data : postData,
-			beforeSend : function(){
-				myApp.showIndicator();
-			},
-			success : function(data){
-				//REFRESCAR METAS
-				mainView.loadPage('recordatorios.html');
-				id_alarma = parseInt(data.id);
-				fecha = $('#calendar-default').val();
-				fecha =  fecha.split("-");
-				year = fecha[0];
-				month = fecha[1];
-				month = month-1;
-				day = fecha[2];
-				hora = $('#hora_alarma').val();
-				hora = hora.split(":");
-				hours =hora[0];
-				minutes = hora[1];
-				fecha = new Date(year, month, day, hours, minutes);
-				repetir = $('#input_repetir').val();
-				agendarAlarma(id_alarma,fecha,postData.texto,repetir);
-				/*
-				alert(fecha);
-				alert(id_alarma);
-				alert(postData.texto);
-				*/
-				//agendarAlarma();
-			},
-			complete : function(data){
-				myApp.hideIndicator();
-			},
-		});
 	});
 	$(document).on('click', '.borraralarma', function(e){
 		id_alarma = $(this).attr('rel');

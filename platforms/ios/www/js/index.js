@@ -66,6 +66,7 @@ var app = {
        // cordova.plugins.notification.local.getTriggered(function (notifications) {
        //     alert(notifications.length);
        // });
+       
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {

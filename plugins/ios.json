@@ -7,6 +7,11 @@
         "files": {}
     },
     "installed_plugins": {
+        "com.phonegap.plugins.facebookconnect": {
+            "APP_ID": "116079742277976",
+            "APP_NAME": "¿Soy Zombie?",
+            "PACKAGE_NAME": "com.graphicsandcode.zoyzombie"
+        },
         "cordova-plugin-battery-status": {
             "PACKAGE_NAME": "com.graphicsandcode.zoyzombie"
         },
@@ -26,6 +31,11 @@
             "PACKAGE_NAME": "com.graphicsandcode.zoyzombie"
         },
         "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "com.graphicsandcode.zoyzombie"
+        },
+        "cordova-plugin-facebook4": {
+            "APP_ID": "116079742277976",
+            "APP_NAME": "¿Soy Zombie?",
             "PACKAGE_NAME": "com.graphicsandcode.zoyzombie"
         },
         "cordova-plugin-file-transfer": {

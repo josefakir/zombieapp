@@ -14,11 +14,10 @@
        specific language governing permissions and limitations
        under the License.
 */
-'use strict';
+
 var fs = require('fs');
 var path = require('path');
 var shell = require('shelljs');
-var util = require('util');
 var events = require('cordova-common').events;
 var CordovaError = require('cordova-common').CordovaError;
 
@@ -49,105 +48,61 @@ var handlers = {
     'resource-file':{
         install:function(obj, plugin, project, options) {
             var src = obj.src,
-                target = obj.target,
-                srcFile = path.resolve(plugin.dir, src);
-
-            if (!target) {
-                target = path.basename(src);
-            }
-            var destFile = path.resolve(project.resources_dir, target);
-
-            if (!fs.existsSync(srcFile)) {
-                throw new CordovaError('Cannot find resource file "' + srcFile + '" for plugin ' + plugin.id + ' in iOS platform');
-            }
-            if (fs.existsSync(destFile)) {
-                throw new CordovaError('File already exists at destination "' + destFile + '" for resource file specified by plugin ' + plugin.id + ' in iOS platform');
-            }
-            project.xcode.addResourceFile(path.join('Resources', target));
-            var link = !!(options && options.link);
-            copyFile(plugin.dir, src, project.projectDir, destFile, link);
+                srcFile = path.resolve(plugin.dir, src),
+                destFile = path.resolve(project.resources_dir, path.basename(src));
+            if (!fs.existsSync(srcFile)) throw new CordovaError('Cannot find resource file "' + srcFile + '" for plugin ' + plugin.id + ' in iOS platform');
+            if (fs.existsSync(destFile)) throw new CordovaError('File already exists at detination "' + destFile + '" for resource file specified by plugin ' + plugin.id + ' in iOS platform');
+            project.xcode.addResourceFile(path.join('Resources', path.basename(src)));
+            shell.cp('-R', srcFile, project.resources_dir);
         },
         uninstall:function(obj, plugin, project, options) {
             var src = obj.src,
-                target = obj.target;
-
-            if (!target) {
-                target = path.basename(src);
-            }
-            var destFile = path.resolve(project.resources_dir, target);
-
-            project.xcode.removeResourceFile(path.join('Resources', target));
+                destFile = path.resolve(project.resources_dir, path.basename(src));
+            project.xcode.removeResourceFile(path.join('Resources', path.basename(src)));
             shell.rm('-rf', destFile);
         }
     },
     'framework':{ // CB-5238 custom frameworks only
         install:function(obj, plugin, project, options) {
             var src = obj.src,
-                custom = !!(obj.custom), // convert to boolean (if truthy/falsy)
-                embed = !!(obj.embed), // convert to boolean (if truthy/falsy)
-                link = !embed; // either link or embed can be true, but not both. the other has to be false
-                
+                custom = obj.custom;
+
             if (!custom) {
                 var keepFrameworks = keep_these_frameworks;
 
                 if (keepFrameworks.indexOf(src) < 0) {
-                    if (obj.type === 'podspec') {
-                        //podspec handled in Api.js
-                    } else {
-                        project.frameworks[src] = project.frameworks[src] || 0;
-                        project.frameworks[src]++;
-                        let opt = { customFramework: false, embed: false, link: true, weak: obj.weak };
-                        events.emit('verbose', util.format('Adding non-custom framework to project... %s -> %s', src, JSON.stringify(opt)));
-                        project.xcode.addFramework(src, opt);
-                        events.emit('verbose', util.format('Non-custom framework added to project. %s -> %s', src, JSON.stringify(opt)));
-                    }
+                    project.xcode.addFramework(src, {weak: obj.weak});
+                    project.frameworks[src] = (project.frameworks[src] || 0) + 1;
                 }
                 return;
             }
+
             var srcFile = path.resolve(plugin.dir, src),
                 targetDir = path.resolve(project.plugins_dir, plugin.id, path.basename(src));
             if (!fs.existsSync(srcFile)) throw new CordovaError('Cannot find framework "' + srcFile + '" for plugin ' + plugin.id + ' in iOS platform');
             if (fs.existsSync(targetDir)) throw new CordovaError('Framework "' + targetDir + '" for plugin ' + plugin.id + ' already exists in iOS platform');
-            var symlink = !!(options && options.link);
-            copyFile(plugin.dir, src, project.projectDir, targetDir, symlink); // frameworks are directories
+            shell.mkdir('-p', path.dirname(targetDir));
+            shell.cp('-R', srcFile, path.dirname(targetDir)); // frameworks are directories
             // CB-10773 translate back slashes to forward on win32
             var project_relative = fixPathSep(path.relative(project.projectDir, targetDir));
-            // CB-11233 create Embed Frameworks Build Phase if does not exist
-            var existsEmbedFrameworks = project.xcode.buildPhaseObject('PBXCopyFilesBuildPhase', 'Embed Frameworks');
-            if (!existsEmbedFrameworks && embed) {
-                events.emit('verbose', '"Embed Frameworks" Build Phase (Embedded Binaries) does not exist, creating it.');
-                project.xcode.addBuildPhase([], 'PBXCopyFilesBuildPhase', 'Embed Frameworks', null, 'frameworks');
+            var pbxFile = project.xcode.addFramework(project_relative, {customFramework: true});
+            if (pbxFile) {
+                project.xcode.addToPbxEmbedFrameworksBuildPhase(pbxFile);
             }
-            let opt = { customFramework: true, embed: embed, link: link, sign: true };
-            events.emit('verbose', util.format('Adding custom framework to project... %s -> %s', src, JSON.stringify(opt)));
-            project.xcode.addFramework(project_relative, opt);
-            events.emit('verbose', util.format('Custom framework added to project. %s -> %s', src, JSON.stringify(opt)));
         },
         uninstall:function(obj, plugin, project, options) {
             var src = obj.src;
 
-            if (!obj.custom) { //CB-9825 cocoapod integration for plugins
+            if (!obj.custom) {
                 var keepFrameworks = keep_these_frameworks;
+
                 if (keepFrameworks.indexOf(src) < 0) {
-                    if (obj.type === 'podspec') {
-                        var podsJSON = require(path.join(project.projectDir, 'pods.json'));
-                        if(podsJSON[src]) {
-                            if(podsJSON[src].count > 1) {
-                                podsJSON[src].count = podsJSON[src].count - 1;
-                            } else {
-                                delete podsJSON[src];
-                            }
-                        }
-                    } else {
-                        //this should be refactored
-                        project.frameworks[src] = project.frameworks[src] || 1;
-                        project.frameworks[src]--;
-                        if (project.frameworks[src] < 1) {
-                            // Only remove non-custom framework from xcode project
-                            // if there is no references remains
-                            project.xcode.removeFramework(src);
-                            delete project.frameworks[src];
-                        }
+                    project.frameworks[src] -= (project.frameworks[src] || 1) - 1;
+                    if (project.frameworks[src] < 1) {
+                        // Only remove non-custom framework from xcode project
+                        // if there is no references remains
+                        project.xcode.removeFramework(src);
+                        delete project.frameworks[src];
                     }
                 }
                 return;
@@ -333,10 +288,10 @@ function copyFile (plugin_dir, src, project_dir, dest, link) {
     shell.mkdir('-p', path.dirname(dest));
 
     if (link) {
-        linkFileOrDirTree(src, dest);
+        fs.symlinkSync(path.relative(path.dirname(dest), src), dest);
     } else if (fs.statSync(src).isDirectory()) {
         // XXX shelljs decides to create a directory when -R|-r is used which sucks. http://goo.gl/nbsjq
-        shell.cp('-Rf', path.join(src, '/*'), dest);
+        shell.cp('-Rf', src+'/*', dest);
     } else {
         shell.cp('-f', src, dest);
     }
@@ -349,22 +304,6 @@ function copyNewFile (plugin_dir, src, project_dir, dest, link) {
         throw new CordovaError('"' + target_path + '" already exists!');
 
     copyFile(plugin_dir, src, project_dir, dest, !!link);
-}
-
-function linkFileOrDirTree(src, dest) {
-    if (fs.existsSync(dest)) {
-        shell.rm('-Rf', dest);
-    }
-
-    if (fs.statSync(src).isDirectory()) {
-        shell.mkdir('-p', dest);
-        fs.readdirSync(src).forEach(function(entry) {
-            linkFileOrDirTree(path.join(src, entry), path.join(dest, entry));
-        });
-    }
-    else {
-        fs.linkSync(src, dest);
-    }
 }
 
 // checks if file exists and then deletes. Error if doesn't exist

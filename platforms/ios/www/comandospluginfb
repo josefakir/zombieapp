@@ -1,3 +1,0 @@
-git clone https://github.com/Telerik-Verified-Plugins/Facebook.git phonegap-facebook-plugin
-cordova -d plugin add phonegap-facebook-plugin --variable APP_ID="116079742277976" --variable APP_NAME="¿Soy Zombie?"
-cordova platform add ios

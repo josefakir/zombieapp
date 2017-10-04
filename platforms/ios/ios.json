@@ -168,6 +168,30 @@
                             "xml": "<string />",
                             "count": 1
                         }
+                    ],
+                    "NSCameraUsageDescription": [
+                        {
+                            "xml": "<string>This app needs camera access</string>",
+                            "count": 1
+                        }
+                    ],
+                    "NSMicrophoneUsageDescription": [
+                        {
+                            "xml": "<string>This app needs microphone access</string>",
+                            "count": 1
+                        }
+                    ],
+                    "NSPhotoLibraryAddUsageDescription": [
+                        {
+                            "xml": "<string>This app needs write-access to photo library</string>",
+                            "count": 1
+                        }
+                    ],
+                    "NSPhotoLibraryUsageDescription": [
+                        {
+                            "xml": "<string>This app needs read/write-access photo library access</string>",
+                            "count": 1
+                        }
                     ]
                 }
             }
@@ -177,81 +201,88 @@
         "com.phonegap.plugins.facebookconnect": {
             "APP_ID": "116079742277976",
             "APP_NAME": "¿Soy Zombie?",
-            "PACKAGE_NAME": "com.graphicsandcode.zoyzombie"
+            "PACKAGE_NAME": "com.graphicsandcode.zombie"
         },
         "cordova-plugin-battery-status": {
-            "PACKAGE_NAME": "com.graphicsandcode.zoyzombie"
+            "PACKAGE_NAME": "com.graphicsandcode.zombie"
         },
         "cordova-plugin-camera": {
-            "PACKAGE_NAME": "com.graphicsandcode.zoyzombie"
+            "PACKAGE_NAME": "com.graphicsandcode.zombie"
         },
         "cordova-plugin-console": {
-            "PACKAGE_NAME": "com.graphicsandcode.zoyzombie"
+            "PACKAGE_NAME": "com.graphicsandcode.zombie"
         },
         "cordova-plugin-contacts": {
-            "PACKAGE_NAME": "com.graphicsandcode.zoyzombie"
+            "PACKAGE_NAME": "com.graphicsandcode.zombie"
         },
         "cordova-plugin-device-motion": {
-            "PACKAGE_NAME": "com.graphicsandcode.zoyzombie"
+            "PACKAGE_NAME": "com.graphicsandcode.zombie"
         },
         "cordova-plugin-device-orientation": {
-            "PACKAGE_NAME": "com.graphicsandcode.zoyzombie"
+            "PACKAGE_NAME": "com.graphicsandcode.zombie"
         },
         "cordova-plugin-dialogs": {
-            "PACKAGE_NAME": "com.graphicsandcode.zoyzombie"
+            "PACKAGE_NAME": "com.graphicsandcode.zombie"
         },
         "cordova-plugin-facebook4": {
             "APP_ID": "116079742277976",
             "APP_NAME": "¿Soy Zombie?",
-            "PACKAGE_NAME": "com.graphicsandcode.zoyzombie"
+            "PACKAGE_NAME": "com.graphicsandcode.zombie"
         },
         "cordova-plugin-file-transfer": {
-            "PACKAGE_NAME": "com.graphicsandcode.zoyzombie"
+            "PACKAGE_NAME": "com.graphicsandcode.zombie"
         },
         "cordova-plugin-geolocation": {
-            "PACKAGE_NAME": "com.graphicsandcode.zoyzombie"
+            "PACKAGE_NAME": "com.graphicsandcode.zombie"
         },
         "cordova-plugin-globalization": {
-            "PACKAGE_NAME": "com.graphicsandcode.zoyzombie"
+            "PACKAGE_NAME": "com.graphicsandcode.zombie"
         },
         "cordova-plugin-inappbrowser": {
-            "PACKAGE_NAME": "com.graphicsandcode.zoyzombie"
+            "PACKAGE_NAME": "com.graphicsandcode.zombie"
         },
         "cordova-plugin-media": {
-            "PACKAGE_NAME": "com.graphicsandcode.zoyzombie"
+            "PACKAGE_NAME": "com.graphicsandcode.zombie"
         },
         "cordova-plugin-media-capture": {
-            "PACKAGE_NAME": "com.graphicsandcode.zoyzombie"
+            "PACKAGE_NAME": "com.graphicsandcode.zombie"
         },
         "cordova-plugin-network-information": {
-            "PACKAGE_NAME": "com.graphicsandcode.zoyzombie"
+            "PACKAGE_NAME": "com.graphicsandcode.zombie"
         },
         "cordova-plugin-splashscreen": {
-            "PACKAGE_NAME": "com.graphicsandcode.zoyzombie"
+            "PACKAGE_NAME": "com.graphicsandcode.zombie"
         },
         "cordova-plugin-statusbar": {
-            "PACKAGE_NAME": "com.graphicsandcode.zoyzombie"
+            "PACKAGE_NAME": "com.graphicsandcode.zombie"
         },
         "cordova-plugin-vibration": {
-            "PACKAGE_NAME": "com.graphicsandcode.zoyzombie"
+            "PACKAGE_NAME": "com.graphicsandcode.zombie"
         },
         "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.graphicsandcode.zoyzombie"
+            "PACKAGE_NAME": "com.graphicsandcode.zombie"
         },
         "de.appplant.cordova.plugin.local-notification": {
-            "PACKAGE_NAME": "com.graphicsandcode.zoyzombie"
+            "PACKAGE_NAME": "com.graphicsandcode.zombie"
         },
         "cordova-plugin-app-event": {
-            "PACKAGE_NAME": "com.graphicsandcode.zoyzombie"
+            "PACKAGE_NAME": "com.graphicsandcode.zombie"
         },
         "cordova-plugin-compat": {
-            "PACKAGE_NAME": "com.graphicsandcode.zoyzombie"
+            "PACKAGE_NAME": "com.graphicsandcode.zombie"
         },
         "cordova-plugin-device": {
-            "PACKAGE_NAME": "com.graphicsandcode.zoyzombie"
+            "PACKAGE_NAME": "com.graphicsandcode.zombie"
         },
         "cordova-plugin-file": {
-            "PACKAGE_NAME": "com.graphicsandcode.zoyzombie"
+            "PACKAGE_NAME": "com.graphicsandcode.zombie"
+        },
+        "cordova-plugin-ios-camera-permissions": {
+            "CAMERA_USAGE_DESCRIPTION": "This app needs camera access",
+            "MICROPHONE_USAGE_DESCRIPTION": "This app needs microphone access",
+            "PHOTOLIBRARY_ADD_USAGE_DESCRIPTION": "This app needs write-access to photo library",
+            "PHOTOLIBRARY_USAGE_DESCRIPTION": "This app needs read/write-access photo library access",
+            "PACKAGE_NAME": "com.graphicsandcode.zombie"
         }
     },
     "dependent_plugins": {},
@@ -885,6 +916,7 @@
         "cordova-plugin-app-event": "1.2.1",
         "cordova-plugin-compat": "1.1.0",
         "cordova-plugin-device": "1.1.6",
-        "cordova-plugin-file": "4.3.3"
+        "cordova-plugin-file": "4.3.3",
+        "cordova-plugin-ios-camera-permissions": "1.2.0"
     }
 }

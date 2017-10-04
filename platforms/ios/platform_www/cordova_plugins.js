@@ -631,7 +631,8 @@ module.exports.metadata =
     "cordova-plugin-app-event": "1.2.1",
     "cordova-plugin-compat": "1.1.0",
     "cordova-plugin-device": "1.1.6",
-    "cordova-plugin-file": "4.3.3"
+    "cordova-plugin-file": "4.3.3",
+    "cordova-plugin-ios-camera-permissions": "1.2.0"
 };
 // BOTTOM OF METADATA
 });

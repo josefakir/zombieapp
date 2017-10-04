@@ -1,6 +1,7 @@
 //var urlWS = "http://localhost/zombieapi";
 var urlWS = "http://graphicsandcode.com/proyectos/zombieapi";
 
+
 $(document).ready(function(){
 	/* CAMBIAR AMBITO */
 	$(document).on('click', '.cambiarambito', function(e){
@@ -51,6 +52,37 @@ $(document).ready(function(){
 		localStorage.clear();
 		mainView.loadPage('index.html');
 	});
+	$(document).on('click', '#btn_registrarme', function(e){
+		var form = $('#formregistro')[0];
+		// Create an FormData object
+        var data = new FormData(form);
+		// If you want to add an extra field for the FormData
+        data.append("CustomField", "This is some extra data, testing");
+
+        console.log(data);
+        $.ajax({
+            type: "POST",
+            enctype: 'multipart/form-data',
+            url : urlWS+'/registro',
+            data: data,
+            processData: false,
+            contentType: false,
+            cache: false,
+            beforeSend : function(){
+				myApp.showIndicator();
+			},
+            success: function (data) {
+				myApp.alert('Gracias por registrarte', '<i class="fa fa-exclamation-circle" aria-hidden="true" style="color:green"></i> Éxito');                 
+             	mainView.loadPage('index.html');
+            },
+            error: function (data) {
+            	console.log(data);
+            },complete : function(data){
+				myApp.hideIndicator();
+			}
+        });
+	});
+	
 	$(document).on('click', '#login_facebook', function(e){
 		facebookConnectPlugin.login(["email","public_profile"], function(response) 
         {

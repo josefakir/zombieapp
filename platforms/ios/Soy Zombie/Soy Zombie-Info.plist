@@ -13,7 +13,7 @@
     <key>CFBundleIcons~ipad</key>
     <dict/>
     <key>CFBundleIdentifier</key>
-    <string>com.graphicsandcode.zoyzombie</string>
+    <string>com.graphicsandcode.zombie</string>
     <key>CFBundleInfoDictionaryVersion</key>
     <string>6.0</string>
     <key>CFBundleName</key>
@@ -21,32 +21,24 @@
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleShortVersionString</key>
-    <string>1.0.3</string>
+    <string>1.0.5</string>
     <key>CFBundleSignature</key>
     <string>????</string>
+    <key>CFBundleURLTypes</key>
+    <array>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>fb116079742277976</string>
+        </array>
+      </dict>
+    </array>
     <key>CFBundleVersion</key>
-    <string>1.0.3</string>
-    <key>LSRequiresIPhoneOS</key>
-    <true/>
-    <key>NSMainNibFile</key>
-    <string/>
-    <key>NSMainNibFile~ipad</key>
-    <string/>
-    <key>UISupportedInterfaceOrientations</key>
-    <array>
-      <string>UIInterfaceOrientationPortrait</string>
-      <string>UIInterfaceOrientationLandscapeLeft</string>
-      <string>UIInterfaceOrientationLandscapeRight</string>
-    </array>
-    <key>UISupportedInterfaceOrientations~ipad</key>
-    <array>
-      <string>UIInterfaceOrientationPortrait</string>
-      <string>UIInterfaceOrientationLandscapeLeft</string>
-      <string>UIInterfaceOrientationPortraitUpsideDown</string>
-      <string>UIInterfaceOrientationLandscapeRight</string>
-    </array>
-    <key>UIRequiresFullScreen</key>
-    <true/>
+    <string>1.0.5</string>
+    <key>FacebookAppID</key>
+    <string>116079742277976</string>
+    <key>FacebookDisplayName</key>
+    <string>¿Soy Zombie?</string>
     <key>LSApplicationQueriesSchemes</key>
     <array>
       <string>fbapi</string>
@@ -54,6 +46,8 @@
       <string>fbauth2</string>
       <string>fbshareextension</string>
     </array>
+    <key>LSRequiresIPhoneOS</key>
+    <true/>
     <key>NSAppTransportSecurity</key>
     <dict>
       <key>NSExceptionDomains</key>
@@ -80,18 +74,32 @@
     </dict>
     <key>NSLocationWhenInUseUsageDescription</key>
     <string/>
-    <key>FacebookAppID</key>
-    <string>116079742277976</string>
-    <key>FacebookDisplayName</key>
-    <string>¿Soy Zombie?</string>
-    <key>CFBundleURLTypes</key>
+    <key>NSMainNibFile</key>
+    <string/>
+    <key>NSMainNibFile~ipad</key>
+    <string/>
+    <key>UIRequiresFullScreen</key>
+    <true/>
+    <key>UISupportedInterfaceOrientations</key>
     <array>
-      <dict>
-        <key>CFBundleURLSchemes</key>
-        <array>
-          <string>fb116079742277976</string>
-        </array>
-      </dict>
+      <string>UIInterfaceOrientationPortrait</string>
+      <string>UIInterfaceOrientationLandscapeLeft</string>
+      <string>UIInterfaceOrientationLandscapeRight</string>
     </array>
+    <key>UISupportedInterfaceOrientations~ipad</key>
+    <array>
+      <string>UIInterfaceOrientationPortrait</string>
+      <string>UIInterfaceOrientationLandscapeLeft</string>
+      <string>UIInterfaceOrientationPortraitUpsideDown</string>
+      <string>UIInterfaceOrientationLandscapeRight</string>
+    </array>
+    <key>NSCameraUsageDescription</key>
+    <string>This app needs camera access</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>This app needs microphone access</string>
+    <key>NSPhotoLibraryAddUsageDescription</key>
+    <string>This app needs write-access to photo library</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>This app needs read/write-access photo library access</string>
   </dict>
 </plist>

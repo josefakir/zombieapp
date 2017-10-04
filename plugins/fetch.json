@@ -204,5 +204,13 @@
             "APP_ID": "116079742277976",
             "APP_NAME": "¿Soy Zombie?"
         }
+    },
+    "cordova-plugin-ios-camera-permissions": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-ios-camera-permissions"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }

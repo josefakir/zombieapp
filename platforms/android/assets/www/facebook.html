@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Facebook Login JavaScript Example</title>
+<meta charset="UTF-8">
+</head>
+<body>
+<script>
+  function statusChangeCallback(response) {
+    if (response.status === 'connected') {
+      // Logged into your app and Facebook.
+      loguear();
+      //ocultar botón
+    } else {
+     //pintar boton
+    }
+  }
+
+  function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+  }
+
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '116079742277976',
+      cookie     : true,  // enable cookies to allow the server to access 
+                          // the session
+      xfbml      : true,  // parse social plugins on this page
+      version    : 'v2.8' // use graph api version 2.8
+    });
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+  };
+
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  function loguear() {
+    console.log('Welcome!  Fetching your information.... ');
+    FB.api('/me',{fields :'name,email,first_name,last_name,picture'}, function(response) {
+      console.log(response);
+
+      console.log('Successful login for: ' + response.name);
+      document.getElementById('status').innerHTML =
+        'Thanks for logging in, ' + response.name + '!';
+    });
+
+
+    // 1) Revisar si ese correo ya está registrado, si sí, obtener su id y su token
+        //localStorage.setItem('auth', true);
+        //localStorage.setItem('apikey', data[0].apikey);
+        //localStorage.setItem('userid', data[0].user_id);
+        //localStorage.setItem('avatar', data[0].avatar);
+        //localStorage.setItem('nombre', data[0].nombre);
+        //localStorage.setItem('paterno', data[0].paterno);
+        //localStorage.setItem('correo', data[0].correo);
+        //si no registrarlo y guardar su token
+  }
+</script>
+<fb:login-button scope="public_profile,email" onlogin="checkLoginState();" data-width="100%" data-max-rows="1" data-size="medium">
+</fb:login-button>
+
+
+<div id="status">
+</div>
+
+</body>
+</html>

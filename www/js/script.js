@@ -57,9 +57,8 @@ $(document).ready(function(){
 		// Create an FormData object
         var data = new FormData(form);
 		// If you want to add an extra field for the FormData
-        data.append("CustomField", "This is some extra data, testing");
+       // data.append("CustomField", "This is some extra data, testing");
 
-        console.log(data);
         $.ajax({
             type: "POST",
             enctype: 'multipart/form-data',
@@ -75,8 +74,9 @@ $(document).ready(function(){
 				myApp.alert('Gracias por registrarte', '<i class="fa fa-exclamation-circle" aria-hidden="true" style="color:green"></i> Éxito');                 
              	mainView.loadPage('index.html');
             },
-            error: function (data) {
-            	console.log(data);
+            error: function (e) {
+				myApp.alert('Error', '<i class="fa fa-exclamation-circle" aria-hidden="true" style="color:green"></i> ');                 
+             	mainView.loadPage('index.html');
             },complete : function(data){
 				myApp.hideIndicator();
 			}

@@ -32,6 +32,9 @@
         },
         "cordova-plugin-dialogs": {
             "PACKAGE_NAME": "com.graphicsandcode.zombie"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.graphicsandcode.zombie"
         }
     },
     "dependent_plugins": {

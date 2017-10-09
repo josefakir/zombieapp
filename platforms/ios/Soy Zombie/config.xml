@@ -148,5 +148,6 @@
     <preference name="CameraUsesGeolocation" value="false" />
     <preference name="StatusBarOverlaysWebView" value="true" />
     <preference name="StatusBarStyle" value="lightcontent" />
+    <preference name="loadUrlTimeoutValue" value="60000" />
     <preference name="android-minSdkVersion" value="14" />
 </widget>

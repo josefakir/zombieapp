@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="theme-color" content="#2196f3">
+
+	<title>¿Soy Zombie?</title>
+	<!-- Font embedding link goes here -->
+	<link href="http://fonts.googleapis.com/css?family=Roboto:400,300,500,700" rel="stylesheet" type="text/css">
+	<link href='https://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+
+	<!-- CSS link goes here -->
+	<link rel="stylesheet" href="css/framework7.material.min.css">
+	<link rel="stylesheet" href="css/framework7.material.colors.min.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/swipebox.min.css">
+	<link rel="stylesheet" href="css/maxframes.css">
+	<link rel="stylesheet" href="js/timedropper.min.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="theme-lightblue">
+	<script>
+		/*
+		function statusChangeCallback(response) {
+			if (response.status === 'connected') {
+				loguear();
+			}
+		}
+		function checkLoginState() {
+			FB.getLoginStatus(function(response) {
+				statusChangeCallback(response);
+			});
+		}
+		window.fbAsyncInit = function() {
+			FB.init({
+				appId      : '116079742277976',
+				cookie     : true, 
+				xfbml      : true, 
+				version    : 'v2.8' 
+			});
+			FB.getLoginStatus(function(response) {
+				statusChangeCallback(response);
+			});
+		};
+		(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+			js = d.createElement(s); js.id = id;
+			js.src = "//connect.facebook.net/en_US/sdk.js";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+		function loguear() {
+			FB.api('/me',{fields :'name,email,first_name,last_name,picture'}, function(response) {
+				console.log(response);  
+				var postData = {
+					correo : response.email,
+					nombre: response.first_name,
+					paterno : response.last_name,
+					imagen : response.picture.data.url
+				}
+				$.ajax({
+					url : urlWS+'/registrofb',
+					method : 'POST',
+					beforeSend : function(){
+						myApp.showIndicator();
+					},
+					data : postData,
+					success : function(data){
+						//console.log(data);
+						if(data[0].auth==true){
+							localStorage.setItem('auth', true);
+							localStorage.setItem('apikey', data[0].apikey);
+							localStorage.setItem('userid', data[0].user_id);
+							localStorage.setItem('avatar', data[0].avatar);
+							localStorage.setItem('nombre', data[0].nombre);
+							localStorage.setItem('paterno', data[0].paterno);
+							localStorage.setItem('correo', data[0].correo);
+							$('#contacto_nombre').val(localStorage.getItem('nombre')+" "+localStorage.getItem('paterno'));
+							$('#contacto_email').val(localStorage.getItem('correo'));
+							$('.avatar').attr('src',urlWS+'/'+localStorage.getItem('avatar'));
+							$('.nombreusuario').html(localStorage.getItem('nombre')+' '+localStorage.getItem('paterno'));
+							mainView.loadPage('home.html');
+						}
+					},
+					complete : function(data){
+						myApp.hideIndicator();
+					},
+					error : function(data){
+						myApp.alert('Usuario o contraseña incorrectos', '<i class="fa fa-exclamation-circle" aria-hidden="true" style="color:red"></i> Error');                 
+					}
+				})
+				/* hacer llamado a api
+			});
+		}
+		*/
+	</script>
+	<div class="statusbar-overlay"></div>
+	<div class="panel-overlay"></div>
+	<div class="panel panel-left panel-cover sidebar">
+		<div class="buttonbar row no-gutter">
+			<a href="#" class=" button color2 col-100 close-panel" id="btn_cerrar_sesion">Cerrar Sesión</a>
+		</div>
+		<div class="view">
+			<div class=" ">
+				<div data-page="panel-left" class="sidemenu leftmenusmall gradient">
+					<div class="item-content userprofile">
+						<div class="item-media"><img class="avatar" src="img/pic1.png" width="44" alt=""/></div>
+						<div class="item-inner">
+							<div class="item-title-row">
+								<div class="item-title nombreusuario"></div>
+							</div>
+						</div>
+					</div>
+					<div class="page-content">
+						<div class="list-block accordion-list">
+							<ul class="menu">
+								<li class="accordion-item"><a href="#" class="item-content item-link">
+									<div class="item-inner">
+										<div class="item-title"><i class="fa fa-trophy"></i>Metas (Largo plazo)</div>
+									</div></a>
+									<div class="accordion-item-content">
+										<div class="content-block">
+											<ul>
+												<li><a href="metas.html?ambito=espirituales" data-panel="left" class="item-link  close-panel cambiarambito" rel="espirituales"><span>Espirituales</span></a></li>
+												<li><a href="metas.html?ambito=fisicas" data-panel="left" class="item-link  close-panel cambiarambito" rel="fisicas"><span>Físicas</span></a></li>
+												<li><a href="metas.html?ambito=circulo" data-panel="left" class="item-link  close-panel cambiarambito" rel="circulo"><span>Círculo Cercano</span></a></li>
+												<li><a href="metas.html?ambito=laboral" data-panel="left" class="item-link  close-panel cambiarambito" rel="laboral"><span>Laboral</span></a></li>
+												<li><a href="metas.html?ambito=responsabilidad" data-panel="left" class="item-link  close-panel cambiarambito" rel="responsabilidad"><span>Responsabilidad Social</span></a></li>
+											</ul>
+										</div>
+									</div>
+								</li>
+								<li><a href="cumpli-metas.html" class="item-content item-link close-panel">
+									<div class="item-inner">
+										<div class="item-title"><i class="fa fa-briefcase" style="color: #775014"></i>¿Cumplí mis tareas diarias?</div>
+									</div></a>
+								</li>
+								<li><a href="avances.html" class="item-content item-link  close-panel ">
+									<div class="item-inner">
+										<div class="item-title"><i class="fa fa-spinner" style="color: #1d6cd6"></i>Avances</div>
+									</div></a>
+								</li>
+								<li><a href="salud-financiera.html" class="item-content item-link  close-panel ">
+									<div class="item-inner">
+										<div class="item-title"><i class="fa fa-money" style="color: green"></i>Salud Financiera</div>
+									</div></a>
+								</li>
+								<li><a href="recordatorios.html" class="item-content item-link  close-panel ">
+									<div class="item-inner">
+										<div class="item-title"><i class="fa fa-clock-o"></i>Recordatorios</div>
+									</div></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-right panel-reveal sidebar">
+		<div class="view">
+			<div class=" ">
+				<div data-page="panel-left" class="sidemenu leftmenusmall gradient">
+					<div class="item-content userprofile">
+						<div class="item-media"><img class="avatar" src="img/pic1.png" width="44"  alt=""/></div>
+						<div class="item-inner">
+							<div class="item-title-row">
+								<div class="item-title nombreusuario"></div>
+							</div>
+						</div>
+					</div>
+					<div class="page-content">
+						<div class="inputs-list content-block" >
+							<h2 class="maintitle  center">Contáctanos</h2>
+						</div>
+						<div class="list-block">
+							<ul>
+								<li>
+									<div class="item-content">
+										<div class="item-inner">
+											<div class="item-title label">Nombre</div>
+											<div class="item-input">
+												<input type="text" placeholder="" id="contacto_nombre" />
+											</div>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="item-content">
+										<div class="item-inner">
+											<div class="item-title label">E-mail</div>
+											<div class="item-input">
+												<input type="email" placeholder="" id="contacto_email" />
+											</div>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="item-content">
+										<div class="item-inner">
+											<div class="item-title label">Tema</div>
+											<div class="item-input">
+												<input type="tel" placeholder="Conferencias motivacionales"  id="contacto_tema" />
+											</div>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="item-content">
+										<div class="item-inner">
+											<div class="item-title label">Teléfono</div>
+											<div class="item-input">
+												<input type="tel" placeholder=""  id="contacto_telefono" />
+											</div>
+										</div>
+									</div>
+								</li>
+
+							</li>
+							<li class="align-top">
+								<div class="item-content">
+									<div class="item-inner">
+										<div class="item-title label">Mensaje</div>
+										<div class="item-input">
+											<textarea class="resizable"  id="contacto_mensaje" ></textarea>
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="content-block"> <a href="#" class="button button-fill " id="btn_enviar_mensaje">Enviar</a> </div>
+					<hr>
+				</div>
+				<div class="buttonbar row no-gutter">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<div class="views pageview" >
+	<div class="view view-main">
+		<div class="pages">
+			<div data-page="index" class="page">
+				<div class="page-content landingpage">
+					<div class="logo main col12"> <img src="img/icon.png" alt=""> </div>
+					<div class="introtext">
+						<h1>¿Soy Zombie?</h1>
+						<p>9 pasos para salir del estado de muerto viviente</p>
+						<a href="#" id="login_facebook"><i class="fa fa-facebook" aria-hidden="true"></i> Iniciar Sesión con Facebook</a>
+				</div>
+
+				<div class="buttonbar row no-gutter">
+					<a href="sign-in.html" class="button-fill button col-50">Iniciar Sesión</a>
+					<a href="register.html" class="color2 button col-50">Registrarme</a>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+
+
+<!-- JS link goes here --> 
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript">
+	app.initialize();
+</script>
+<script type="text/javascript" src="js/jquery.min.js"></script> 
+<script type="text/javascript" src="js/framework7.min.js"></script> 
+<script type="text/javascript" src="js/jquery.swipebox.js"></script> 
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="js/masonry.pkgd.min.js"></script>
+<script type="text/javascript" src="js/maxframes.js"></script>
+<script type="text/javascript" src="js/raphael-2.1.4.min.js"></script>
+<script type="text/javascript" src="js/justgage.js"></script>
+<script type="text/javascript" src="js/timedropper.min.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
+</body>
+</html>

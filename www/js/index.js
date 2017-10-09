@@ -24,7 +24,7 @@ function agendarAlarma(id,fecha,texto,repetir){
                 text: texto,
                 at: fecha,
             });
-            alert('agendada');
+            myApp.alert('Alarma agendada', '<i class="fa fa-exclamation-circle" aria-hidden="true" style="color:green"></i> Éxito');                 
         }else{
              cordova.plugins.notification.local.schedule({
                 id: id,
@@ -32,7 +32,7 @@ function agendarAlarma(id,fecha,texto,repetir){
                 at: fecha,
                 every : repetir
             });
-            alert('agendada');
+            myApp.alert('Alarma agendada', '<i class="fa fa-exclamation-circle" aria-hidden="true" style="color:green"></i> Éxito');                 
         }
         
     }catch(err) {

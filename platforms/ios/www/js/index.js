@@ -23,6 +23,7 @@ function agendarAlarma(id,fecha,texto,repetir){
                 id: id,
                 text: texto,
                 at: fecha,
+                sound: 'file://alarm.caf',
             });
             myApp.alert('Alarma agendada', '<i class="fa fa-exclamation-circle" aria-hidden="true" style="color:green"></i> Éxito');                 
         }else{
@@ -30,7 +31,9 @@ function agendarAlarma(id,fecha,texto,repetir){
                 id: id,
                 text: texto,
                 at: fecha,
-                every : repetir
+                every : repetir,
+                sound: 'file://alarm.caf',
+
             });
             myApp.alert('Alarma agendada', '<i class="fa fa-exclamation-circle" aria-hidden="true" style="color:green"></i> Éxito');                 
         }
@@ -63,6 +66,7 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
+        //alert('deviceready');
        // cordova.plugins.notification.local.getTriggered(function (notifications) {
        //     alert(notifications.length);
        // });

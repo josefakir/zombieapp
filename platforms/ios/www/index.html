@@ -23,81 +23,6 @@
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body class="theme-lightblue">
-	<script>
-		/*
-		function statusChangeCallback(response) {
-			if (response.status === 'connected') {
-				loguear();
-			}
-		}
-		function checkLoginState() {
-			FB.getLoginStatus(function(response) {
-				statusChangeCallback(response);
-			});
-		}
-		window.fbAsyncInit = function() {
-			FB.init({
-				appId      : '116079742277976',
-				cookie     : true, 
-				xfbml      : true, 
-				version    : 'v2.8' 
-			});
-			FB.getLoginStatus(function(response) {
-				statusChangeCallback(response);
-			});
-		};
-		(function(d, s, id) {
-			var js, fjs = d.getElementsByTagName(s)[0];
-			if (d.getElementById(id)) return;
-			js = d.createElement(s); js.id = id;
-			js.src = "//connect.facebook.net/en_US/sdk.js";
-			fjs.parentNode.insertBefore(js, fjs);
-		}(document, 'script', 'facebook-jssdk'));
-		function loguear() {
-			FB.api('/me',{fields :'name,email,first_name,last_name,picture'}, function(response) {
-				console.log(response);  
-				var postData = {
-					correo : response.email,
-					nombre: response.first_name,
-					paterno : response.last_name,
-					imagen : response.picture.data.url
-				}
-				$.ajax({
-					url : urlWS+'/registrofb',
-					method : 'POST',
-					beforeSend : function(){
-						myApp.showIndicator();
-					},
-					data : postData,
-					success : function(data){
-						//console.log(data);
-						if(data[0].auth==true){
-							localStorage.setItem('auth', true);
-							localStorage.setItem('apikey', data[0].apikey);
-							localStorage.setItem('userid', data[0].user_id);
-							localStorage.setItem('avatar', data[0].avatar);
-							localStorage.setItem('nombre', data[0].nombre);
-							localStorage.setItem('paterno', data[0].paterno);
-							localStorage.setItem('correo', data[0].correo);
-							$('#contacto_nombre').val(localStorage.getItem('nombre')+" "+localStorage.getItem('paterno'));
-							$('#contacto_email').val(localStorage.getItem('correo'));
-							$('.avatar').attr('src',urlWS+'/'+localStorage.getItem('avatar'));
-							$('.nombreusuario').html(localStorage.getItem('nombre')+' '+localStorage.getItem('paterno'));
-							mainView.loadPage('home.html');
-						}
-					},
-					complete : function(data){
-						myApp.hideIndicator();
-					},
-					error : function(data){
-						myApp.alert('Usuario o contraseña incorrectos', '<i class="fa fa-exclamation-circle" aria-hidden="true" style="color:red"></i> Error');                 
-					}
-				})
-				/* hacer llamado a api
-			});
-		}
-		*/
-	</script>
 	<div class="statusbar-overlay"></div>
 	<div class="panel-overlay"></div>
 	<div class="panel panel-left panel-cover sidebar">
@@ -120,7 +45,7 @@
 							<ul class="menu">
 								<li class="accordion-item"><a href="#" class="item-content item-link">
 									<div class="item-inner">
-										<div class="item-title"><i class="fa fa-trophy"></i>Metas (Largo plazo)</div>
+										<div class="item-title"><i class="fa fa-trophy"></i>Metas</div>
 									</div></a>
 									<div class="accordion-item-content">
 										<div class="content-block">
@@ -204,7 +129,7 @@
 										<div class="item-inner">
 											<div class="item-title label">Tema</div>
 											<div class="item-input">
-												<input type="tel" placeholder="Conferencias motivacionales"  id="contacto_tema" />
+												<input type="text" placeholder="Conferencias motivacionales"  id="contacto_tema" />
 											</div>
 										</div>
 									</div>
@@ -253,7 +178,7 @@
 					<div class="logo main col12"> <img src="img/icon.png" alt=""> </div>
 					<div class="introtext">
 						<h1>¿Soy Zombie?</h1>
-						<p>9 pasos para salir del estado de muerto viviente</p>
+						<p>9 pasos para superar del estado de muerto viviente</p>
 						<a href="#" id="login_facebook"><i class="fa fa-facebook" aria-hidden="true"></i> Iniciar Sesión con Facebook</a>
 				</div>
 

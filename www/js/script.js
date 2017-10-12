@@ -92,7 +92,11 @@ $(document).ready(function(){
             {
             	//
             	facebookConnectPlugin.api('/me?fields=email,first_name,last_name,picture', ["email","public_profile"],function(response){
-            		console.log(response);
+            		//alert(response.email);
+            		
+		       		if(response.email==null){
+            			response.email = response.first_name+response.last_name+'@facebook.com';
+            		}
             		var postData = {
 						correo : response.email,
 						nombre: response.first_name,
@@ -100,7 +104,7 @@ $(document).ready(function(){
 						imagen : response.picture.data.url
 					}
 					$.ajax({
-						timeout: 1000,
+						timeout: 5000,
 						url : urlWS+'/registrofb',
 						method : 'POST',
 						beforeSend : function(){
@@ -129,12 +133,11 @@ $(document).ready(function(){
 						},
 						error : function(data){
 							console.log(data);
-							myApp.alert('Usuario o contraseña incorrectos', '<i class="fa fa-exclamation-circle" aria-hidden="true" style="color:red"></i> Error');                 
+							myApp.alert('Error', '<i class="fa fa-exclamation-circle" aria-hidden="true" style="color:red"></i> Error');                 
 						}
 					});
             	},function(error){
-            		//console.log(error);
-            		//alert(error);
+
             	})
 
 
@@ -389,6 +392,7 @@ $(document).ready(function(){
 		$('#variables').html(variables);
 		$('#egresos').html(egresos);
 		$('#ahorro').html((fijos+variables)-egresos);
+		$('#markup').html(fijos/2);
 
 		localStorage.setItem("fijos-enero",$( "#fijos-enero").val());
 		localStorage.setItem("fijos-febrero",$( "#fijos-febrero").val());
@@ -589,7 +593,7 @@ function refrescarAlarmas(){
 			$('#list_recordatorios').html('');
 			var output = '';
 			$.each( data, function( key, value ) {
-				output += '<li class="swipeout primarystatus"><div class="item-content swipeout-content"><!--<a class="item-content item-link" href="tareas.html?id_meta='+value.id+'">--><div class="item-media"><i class="fa fa-clock-o" aria-hidden="true"></i></div><div class="item-inner"><div class="item-title-row"><div class="item-title">'+value.texto+'</div></div></div><!--</a>--></div><div class="swipeout-actions-right"><a href="#" class="borrar borraralarma" rel="'+value.id+'" >Eliminar</a><!--<a href="editar-meta.html?id_meta='+value.id+'" class="swipeout-update editarmeta"  rel="'+value.id+'">Editar</a>--></div></li>';
+				output += '<li class="swipeout primarystatus"><div class="item-content swipeout-content"><!--<a class="item-content item-link" href="tareas.html?id_meta='+value.id+'">--><div class="item-media"><i class="fa fa-clock-o" aria-hidden="true"></i></div><div class="item-inner"><div class="item-title-row"><div class="item-title">'+value.texto+'</div></div></div><!--</a>--></div><div class="swipeout-actions-right"><a href="#" class="perfecto borraralarma" rel="'+value.id+'"> Ya lo hice</a><!--<a href="editar-meta.html?id_meta='+value.id+'" class="swipeout-update editarmeta"  rel="'+value.id+'">Editar</a>--></div></li>';
 			})
 			$('#list_recordatorios').html(output);
 		},

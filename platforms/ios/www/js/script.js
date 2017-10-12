@@ -16,6 +16,7 @@ $(document).ready(function(){
 	/* INICIAR SESIÓN */
 	$(document).on('click', '#btn_iniciar_sesion', function(e){
 		$.ajax({
+			timeout: 1000,
 			headers: {
 			    "email" : $('#input_email').val(),
 			    "pass" : $('#input_pass').val()
@@ -60,6 +61,7 @@ $(document).ready(function(){
        // data.append("CustomField", "This is some extra data, testing");
 
         $.ajax({
+        	timeout: 1000,
             type: "POST",
             enctype: 'multipart/form-data',
             url : urlWS+'/registro',
@@ -90,7 +92,11 @@ $(document).ready(function(){
             {
             	//
             	facebookConnectPlugin.api('/me?fields=email,first_name,last_name,picture', ["email","public_profile"],function(response){
-            		console.log(response);
+            		//alert(response.email);
+            		
+		       		if(response.email==null){
+            			response.email = response.first_name+response.last_name+'@facebook.com';
+            		}
             		var postData = {
 						correo : response.email,
 						nombre: response.first_name,
@@ -98,6 +104,7 @@ $(document).ready(function(){
 						imagen : response.picture.data.url
 					}
 					$.ajax({
+						timeout: 5000,
 						url : urlWS+'/registrofb',
 						method : 'POST',
 						beforeSend : function(){
@@ -126,12 +133,11 @@ $(document).ready(function(){
 						},
 						error : function(data){
 							console.log(data);
-							myApp.alert('Usuario o contraseña incorrectos', '<i class="fa fa-exclamation-circle" aria-hidden="true" style="color:red"></i> Error');                 
+							myApp.alert('Error', '<i class="fa fa-exclamation-circle" aria-hidden="true" style="color:red"></i> Error');                 
 						}
 					});
             	},function(error){
-            		//console.log(error);
-            		//alert(error);
+
             	})
 
 
@@ -168,6 +174,7 @@ $(document).ready(function(){
 				texto : $('#input_meta').val()
 			}
 			$.ajax({
+				timeout: 1000,
 				method : 'POST',
 				url : urlWS+'/meta',
 				headers: {
@@ -204,6 +211,7 @@ $(document).ready(function(){
 			texto : texto_meta
 		}
 		$.ajax({
+			timeout: 1000,
 			method : 'POST',
 			url : urlWS+'/meta/'+id_meta,
 			headers: {
@@ -237,6 +245,7 @@ $(document).ready(function(){
 				texto : texto
 			}
 			$.ajax({
+				timeout: 1000,
 				method : 'POST',
 				url : urlWS+'/tarea',
 				headers: {
@@ -275,6 +284,7 @@ $(document).ready(function(){
 			texto : texto_tarea
 		}
 		$.ajax({
+			timeout: 1000,
 			method : 'POST',
 			url : urlWS+'/tarea/'+id_tarea,
 			headers: {
@@ -303,6 +313,7 @@ $(document).ready(function(){
 			status : status
 		}
 		$.ajax({
+			timeout: 1000,
 			method : 'POST',
 			url : urlWS+'/revision',
 			headers: {
@@ -331,6 +342,7 @@ $(document).ready(function(){
 			status : status
 		}
 		$.ajax({
+			timeout: 1000,
 			method : 'POST',
 			url : urlWS+'/revision',
 			headers: {
@@ -380,6 +392,7 @@ $(document).ready(function(){
 		$('#variables').html(variables);
 		$('#egresos').html(egresos);
 		$('#ahorro').html((fijos+variables)-egresos);
+		$('#markup').html(fijos/2);
 
 		localStorage.setItem("fijos-enero",$( "#fijos-enero").val());
 		localStorage.setItem("fijos-febrero",$( "#fijos-febrero").val());
@@ -425,6 +438,7 @@ $(document).ready(function(){
 		myApp.confirm('¿Está seguro de querer eliminar todas las alarmas?', 'Si hace click en ok se eliminarán', 
 	      function () {
 	      	$.ajax({
+	      		timeout: 1000,
 	      		type: 'DELETE',
 				url : urlWS+'/alarmas/'+localStorage.getItem('userid'),
 				headers: {
@@ -458,6 +472,7 @@ $(document).ready(function(){
 				fecha : $('#calendar-default').val()+' '+$('#hora_alarma').val()
 			}
 			$.ajax({
+				timeout: 1000,
 				method : 'POST',
 				url : urlWS+'/alarma',
 				headers: {
@@ -513,6 +528,7 @@ $(document).ready(function(){
 			contacto_mensaje : $('#contacto_mensaje').val()
 		}
 		$.ajax({
+			timeout: 1000,
 			method : 'POST',
 			url : urlWS+'/contacto',
 			headers: {
@@ -541,6 +557,7 @@ $(document).ready(function(){
 
 function refrescarMetas(ambito){
 	$.ajax({
+		timeout: 1000,
 		url : urlWS+'/metas/'+localStorage.getItem('userid')+'/'+ambito,
 		headers: {
 			"token": localStorage.getItem("apikey")
@@ -564,6 +581,7 @@ function refrescarMetas(ambito){
 
 function refrescarAlarmas(){
 	$.ajax({
+		timeout: 1000,
 		url : urlWS+'/alarmas/'+localStorage.getItem('userid'),
 		headers: {
 			"token": localStorage.getItem("apikey")
@@ -575,7 +593,7 @@ function refrescarAlarmas(){
 			$('#list_recordatorios').html('');
 			var output = '';
 			$.each( data, function( key, value ) {
-				output += '<li class="swipeout primarystatus"><div class="item-content swipeout-content"><!--<a class="item-content item-link" href="tareas.html?id_meta='+value.id+'">--><div class="item-media"><i class="fa fa-clock-o" aria-hidden="true"></i></div><div class="item-inner"><div class="item-title-row"><div class="item-title">'+value.texto+'</div></div></div><!--</a>--></div><div class="swipeout-actions-right"><a href="#" class="borrar borraralarma" rel="'+value.id+'" >Eliminar</a><!--<a href="editar-meta.html?id_meta='+value.id+'" class="swipeout-update editarmeta"  rel="'+value.id+'">Editar</a>--></div></li>';
+				output += '<li class="swipeout primarystatus"><div class="item-content swipeout-content"><!--<a class="item-content item-link" href="tareas.html?id_meta='+value.id+'">--><div class="item-media"><i class="fa fa-clock-o" aria-hidden="true"></i></div><div class="item-inner"><div class="item-title-row"><div class="item-title">'+value.texto+'</div></div></div><!--</a>--></div><div class="swipeout-actions-right"><a href="#" class="perfecto borraralarma" rel="'+value.id+'"> Ya lo hice</a><!--<a href="editar-meta.html?id_meta='+value.id+'" class="swipeout-update editarmeta"  rel="'+value.id+'">Editar</a>--></div></li>';
 			})
 			$('#list_recordatorios').html(output);
 		},
@@ -587,6 +605,7 @@ function refrescarAlarmas(){
 
 function eliminarMeta(id,ambito){
 	$.ajax({
+		timeout: 1000,
 		url : urlWS+'/meta/'+id,
 		type: 'DELETE',
 		headers: {
@@ -606,6 +625,7 @@ function eliminarMeta(id,ambito){
 
 function eliminarTarea(id,id_meta){
 	$.ajax({
+		timeout: 1000,
 		url : urlWS+'/tarea/'+id,
 		type: 'DELETE',
 		headers: {
@@ -626,6 +646,7 @@ function eliminarTarea(id,id_meta){
 
 function eliminarAlarma(id){
 	$.ajax({
+		timeout: 1000,
 		url : urlWS+'/alarma/'+id,
 		type: 'DELETE',
 		headers: {
@@ -645,6 +666,7 @@ function eliminarAlarma(id){
 
 function refrescarTareas(id){
 	$.ajax({
+		timeout: 1000,
 		url : urlWS+'/tareas/'+id,
 		type: 'GET',
 		headers: {
@@ -687,6 +709,7 @@ myApp.onPageInit('tareaadd', function (page) {
 myApp.onPageInit('editar-meta', function (page) {
 	id_meta = page.query.id_meta;
 	$.ajax({
+		timeout: 1000,
 		url : urlWS+'/meta/'+id_meta,
 		type: 'GET',
 		headers: {
@@ -711,6 +734,7 @@ myApp.onPageInit('editar-tarea', function (page) {
 	id_meta = page.query.id_meta;
 	$('#id_meta').val(id_meta);
 	$.ajax({
+		timeout: 1000,
 		url : urlWS+'/tarea/'+id_tarea,
 		type: 'GET',
 		headers: {
@@ -733,6 +757,7 @@ myApp.onPageInit('editar-tarea', function (page) {
 myApp.onPageInit('cumplimetas', function (page) {
 	id_usuario = localStorage.getItem('userid');
 	$.ajax({
+		timeout: 1000,
 		url : urlWS+'/todas_tareas/'+id_usuario,
 		type: 'GET',
 		headers: {
@@ -775,6 +800,7 @@ myApp.onPageInit('cumplimetas', function (page) {
 myApp.onPageInit('avances', function (page) {
 	id_usuario = localStorage.getItem('userid');
 	$.ajax({
+		timeout: 1000,
 		url : urlWS+'/avances/'+id_usuario,
 		type: 'GET',
 		headers: {
@@ -869,6 +895,7 @@ myApp.onPageInit('home', function (page) {
 	$('.avatar').attr('src',urlWS+'/'+localStorage.getItem('avatar'));
 	$('.nombreusuario').html(localStorage.getItem('nombre')+' '+localStorage.getItem('paterno'));
 	$.ajax({
+		timeout: 1000,
 		url : urlWS+'/mensajes',
 		type: 'GET',
 		beforeSend : function(){

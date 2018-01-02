@@ -92,7 +92,6 @@ $(document).ready(function(){
             {
             	//
             	facebookConnectPlugin.api('/me?fields=email,first_name,last_name,picture', ["email","public_profile"],function(response){
-            		//alert(response.email);
             		
 		       		if(response.email==null){
             			response.email = response.first_name+response.last_name+'@facebook.com';
@@ -539,7 +538,6 @@ $(document).ready(function(){
 				myApp.showIndicator();
 			},
 			success : function(data){
-				console.log(data);
 				myApp.alert('El mensaje fue enviado correctamente', '<i class="fa fa-exclamation-circle" aria-hidden="true" style="color:green"></i> Éxito');                 
 
 			},
@@ -549,7 +547,6 @@ $(document).ready(function(){
 		});
 	});
 	$(document).on('click', '.regresartodoadd', function(e){
-		console.log(localStorage.getItem("ambito"));
 		mainView.loadPage('metas.html?ambito='+localStorage.getItem("ambito"));
 	});
 	
@@ -819,9 +816,8 @@ myApp.onPageInit('avances', function (page) {
 			});
 			$('#contenedoravances').html(output);
 			for (i = 0; i < cont; i++) { 
-				valor = data[i].porcentaje;
+				valor = data[i].porcentaje_actual;
 				meta = data[i].meta; 
-				valor = valor.replace('%','');
 				var g = new JustGage({
 					id: "gauge"+i,
 					value: Math.ceil(valor),

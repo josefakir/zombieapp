@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.graphicsandcode.zombie" version="4.0.31" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+    <name>¿Soy Zombie?</name>
+    <description>
+        9 pasos para salir del estado de muerto viviente
+    </description>
+    <author email="pepe@killerpixel.rocks" href="https://killerpixel.rocks">
+        Killer Pixel
+    </author>
+    <content src="index.html" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <access origin="https://api.soyzombie.com/*" />
+    <plugin name="cordova-plugin-calendar" spec="~5.1.6">
+        <variable name="CALENDAR_USAGE_DESCRIPTION" value="El Calendario se utiliza para guardar recordatorios" />
+        <variable name="CONTACTS_USAGE_DESCRIPTION" value="Si es necesario agregar contactos a esos recordatorios" />
+    </plugin>
+    <plugin name="cordova-plugin-camera" spec="~2.4.1">
+        <variable name="CAMERA_USAGE_DESCRIPTION" value="La cámara se utiliza para poder sacar una foto y crear el avatar" />
+        <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="La librería de fotos se utiliza para poder crear el avatar sin la cámara" />
+    </plugin>
+    <platform name="ios">
+        <icon src="www/res/icon/ios/180.png" width="180" height="180" />
+        <icon src="www/res/icon/ios/80.png" width="80" height="80" />
+        <icon src="www/res/icon/ios/120.png" width="120" height="120" />
+        <icon src="www/res/icon/ios/57.png" width="57" height="57" />
+        <icon src="www/res/icon/ios/58.png" width="58" height="58" />
+        <icon src="www/res/icon/ios/29.png" width="29" height="29" />
+        <icon src="www/res/icon/ios/87.png" width="87" height="87" />
+        <icon src="www/res/icon/ios/114.png" width="114" height="114" />
+        <icon src="www/res/icon/ios/40.png" width="40" height="40" />
+        <icon src="www/res/icon/ios/60.png" width="60" height="60" />
+        <icon src="www/res/icon/ios/1024.png" width="1024" height="1024" />
+        <icon src="www/res/icon/ios/72.png" width="72" height="72" />
+        <icon src="www/res/icon/ios/152.png" width="152" height="152" />
+        <icon src="www/res/icon/ios/100.png" width="100" height="100" />
+        <icon src="www/res/icon/ios/76.png" width="76" height="76" />
+        <icon src="www/res/icon/ios/144.png" width="144" height="144" />
+        <icon src="www/res/icon/ios/167.png" width="167" height="167" />
+        <icon src="www/res/icon/ios/172.png" width="172" height="172" />
+        <icon src="www/res/icon/ios/88.png" width="88" height="88" />
+        <icon src="www/res/icon/ios/102.png" width="102" height="102" />
+        <icon src="www/res/icon/ios/92.png" width="92" height="92" />
+        <icon src="www/res/icon/ios/100.png" width="100" height="100" />
+        <icon src="www/res/icon/ios/196.png" width="196" height="196" />
+        <icon src="www/res/icon/ios/216.png" width="216" height="216" />
+        <icon src="www/res/icon/ios/48.png" width="48" height="48" />
+        <icon src="www/res/icon/ios/55.png" width="55" height="55" />
+        <icon src="www/res/icon/ios/66.png" width="66" height="66" />
+        <icon src="www/res/icon/ios/128.png" width="128" height="128" />
+        <icon src="www/res/icon/ios/256.png" width="256" height="256" />
+        <icon src="www/res/icon/ios/512.png" width="512" height="512" />
+        <icon src="www/res/icon/ios/16.png" width="16" height="16" />
+        <icon src="www/res/icon/ios/32.png" width="32" height="32" />
+        <icon src="www/res/icon/ios/64.png" width="64" height="64" />
+        <splash height="1136" platform="ios" src="www/res/screen/ios/Default-568h@2x~iphone.png" width="640" />
+        <splash height="1334" platform="ios" src="www/res/screen/ios/Default-667h.png" width="750" />
+        <splash height="2208" platform="ios" src="www/res/screen/ios/Default-736h.png" width="1242" />
+        <splash height="1242" platform="ios" src="www/res/screen/ios/Default-Landscape-736h.png" width="2208" />
+        <splash height="1536" platform="ios" src="www/res/screen/ios/Default-Landscape@2x~ipad.png" width="2048" />
+        <splash height="768" platform="ios" src="www/res/screen/ios/Default-Landscape~ipad.png" width="1024" />
+        <splash height="2048" platform="ios" src="www/res/screen/ios/Default-Portrait@2x~ipad.png" width="1536" />
+        <splash height="1024" platform="ios" src="www/res/screen/ios/Default-Portrait~ipad.png" width="768" />
+        <splash height="960" platform="ios" src="www/res/screen/ios/Default@2x~iphone.png" width="640" />
+        <splash height="480" platform="ios" src="www/res/screen/ios/Default~iphone.png" width="320" />
+        <allow-navigation href="*" />
+        <access origin="https://api.soyzombie.com" />
+        <allow-navigation href="https://api.soyzombie.com/*" />
+        <allow-intent href="https://api.soyzombie.com/*" />
+        <preference name="scheme" value="app" />
+        <preference name="hostname" value="localhost" />
+    </platform>
+    <platform name="android">
+        <icon density="ldpi" src="www/res/icon/android/drawable-ldpi-icon.png" />
+        <icon density="mdpi" src="www/res/icon/android/drawable-mdpi-icon.png" />
+        <icon density="hdpi" src="www/res/icon/android/drawable-hdpi-icon.png" />
+        <icon density="xhdpi" src="www/res/icon/android/drawable-xhdpi-icon.png" />
+        <icon density="xxhdpi" src="www/res/icon/android/drawable-xxhdpi-icon.png" />
+        <icon density="xxxhdpi" src="www/res/icon/android/drawable-xxxhdpi-icon.png" />
+        <preference name="AndroidWindowSplashScreenAnimatedIcon" value="www/res/screen/android/drawable-port-xxxhdpi-screen.png" />
+    </platform>
+</widget>

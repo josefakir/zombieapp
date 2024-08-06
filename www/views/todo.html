@@ -1,0 +1,61 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="tac">Pendientes:</h1>
+      <div class="form-group">
+        <h2 class="tac">Agregar nuevo pendiente</h2>
+        <select
+          name="select_cattodo"
+          id="select_cattodo"
+          class="form-control"
+        ></select>
+        <a
+          href="views/administrar-categorias.html"
+          id="administrar_categorias"
+          class="loadview boton"
+          style="margin-top: 10px"
+          >Administrar categorías</a
+        >
+        <div class="clearfix"></div>
+        <p>&nbsp;</p>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Completar cotización"
+          id="input_todo"
+        />
+        <a
+          href="#"
+          class="boton"
+          id="btn_guardar_todo"
+          style="position: relative; margin-top: 10px !important; width: 100%"
+          >Guardar</a
+        >
+      </div>
+      <p id="mensaje_pendientes"></p>
+      <ul
+        class="nav nav-tabs justify-content-center"
+        style="margin-bottom: 15px; font-size: 1.4rem"
+      >
+        <li class="nav-item">
+          <a class="nav-link" id="personal">Personales</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="shared">Compartidas</a>
+        </li>
+      </ul>
+      <ul id="lista_todos" class="list-unstyled"></ul>
+      <ul id="lista_todos_shared" class="list-unstyled"></ul>
+      <div id="empty_todo">
+        <div class="container" style="text-align: center">
+          <h3>¡Tu lista está vacía!</h3>
+          <h6>
+            Agregue una nueva categoría y las tareas pendientes para ella.
+          </h6>
+          <img width="200" height="200" src="img/svg-icons/shared_goals.svg" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid" id="container_ver_metas"></div>

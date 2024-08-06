@@ -1,0 +1,64 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="tac">Salud Financiera</h1>
+      <form action="" id="testform">
+        <div class="form-group">
+          <select
+            name="anio"
+            id="input_anio_salud_financiera"
+            class="form-control"
+          >
+            <option value="2018">2018</option>
+            <option value="2019">2019</option>
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <select
+            name="mes"
+            id="input_mes_salud_financiera"
+            class="form-control"
+          >
+            <option value="1">Enero</option>
+            <option value="2">Febrero</option>
+            <option value="3">Marzo</option>
+            <option value="4">Abril</option>
+            <option value="5">Mayo</option>
+            <option value="6">Junio</option>
+            <option value="7">Julio</option>
+            <option value="8">Agosto</option>
+            <option value="9">Septiembre</option>
+            <option value="10">Octubre</option>
+            <option value="11">Noviembre</option>
+            <option value="12">Diciembre</option>
+          </select>
+        </div>
+      </form>
+      <div id="markup">
+        <h2 class="tac">Markup:</h2>
+        <h1 class="tac" id="markupQ"></h1>
+      </div>
+      <table id="tabla_salud_financiera" class="table">
+        <thead>
+          <tr class="table-legend">
+            <th>Concepto</th>
+            <th>Tipo</th>
+            <th>Cantidad</th>
+          </tr>
+        </thead>
+        <tbody id="tabla_salud_financieratbody"></tbody>
+      </table>
+      <div id="empty_list"></div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid" id="financial-form">
+  <a href="" id="btn_agregar_gasto"><i class="fas fa-minus"></i></a>
+  <a href="" id="btn_agregar_ingreso"><i class="fas fa-plus"></i></a>
+</div>
